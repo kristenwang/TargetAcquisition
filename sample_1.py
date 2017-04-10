@@ -19,11 +19,6 @@ width = int(input('Enter width(<50): '))
 center_x = 400
 center_y = 400
 
-IntBox_y=canvas.create_text(60,140,text='Y')
-IntBox_x=canvas.create_text(60,120,text='X')
-IntBox_z=canvas.create_text(60,160,text='Z')
-IntBox_l=canvas.create_text(60,180,text=' ')
-
 Posi_x = [0, center_x-(diameter/2*math.sin(2/18.0*math.pi)), center_x+(diameter/2*math.sin(4/18.0*math.pi)),center_x - (diameter/2*math.cos(3/18.0*math.pi)),center_x + (diameter/2*math.cos(1/18.0*math.pi)),center_x - (diameter/2*math.cos(1/18.0*math.pi)),center_x + (diameter/2*math.cos(3/18.0*math.pi)),center_x - (diameter/2*math.sin(4/18.0*math.pi)),center_x + (diameter/2*math.sin(2/18.0*math.pi)),center_x]
 Posi_y = [0]
 Posi_y.append(center_y + (diameter/2*math.cos(2/18.0*math.pi)))
@@ -36,10 +31,9 @@ Posi_y.append(center_y - (diameter/2*math.cos(4/18.0*math.pi)))
 Posi_y.append(center_y + (diameter/2*math.cos(2/18.0*math.pi)))
 Posi_y.append(center_y - (diameter/2))
 
-
 root = tk.Tk()
 canvas = tk.Canvas(root, width=800, height=800, bg="white")
-
+select1 = canvas.create_text(500,10,text="")
 arc = [0]
 for j in range (1,10):
     arc.append(canvas.create_oval(Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width,width=1,fill='grey'))
@@ -49,8 +43,8 @@ for i in range (1,10):
     target_id.append(canvas.create_text(Posi_x[i],Posi_y[i],text=i,font=("Purisa",60)))
 
 def startNew():
-    global arc, target_id
-    #canvas.delete(arc,target_id)
+    global arc, target_id, select1
+    canvas.itemconfig(select1, text="")
     for j in range (1,10):
         canvas.coords(arc[j],Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width)
         canvas.itemconfig(arc[j], fill='grey')
@@ -65,6 +59,12 @@ def startNew():
 button1 = tk.Button(root, text='new trial',command=startNew)
 button1.pack(side='top', padx=20)
 canvas.pack()
+
+IntBox_y=canvas.create_text(60,140,text='Y')
+IntBox_x=canvas.create_text(60,120,text='X')
+IntBox_z=canvas.create_text(60,160,text='Z')
+IntBox_l=canvas.create_text(60,180,text=' ')
+
 
 def back_to_ori(target):
     global canvas, arc, Posi_x, width, Posi_y, target_id
@@ -156,7 +156,7 @@ class SampleListener(Leap.Listener):
         frame = controller.frame()
         point=frame.pointables.frontmost
         sleep_time=0.3
-        global canvas,IntBox_l,IntBox_x,IntBox_y,IntBox_z
+        global canvas,IntBox_l,IntBox_x,IntBox_y,IntBox_z,select1
 
         if point.is_valid:
             i_box=frame.interaction_box
@@ -208,7 +208,7 @@ class SampleListener(Leap.Listener):
                 bubble(1)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[1], fill='#000000')
-                    select1=canvas.create_text(500,10,text="1 has been selected")
+                    canvas.itemconfig(select1, text="1 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 1])
