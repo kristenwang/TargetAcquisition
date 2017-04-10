@@ -1,11 +1,3 @@
-################################################################################
-# Copyright (C) 2012-2016 Leap Motion, Inc. All rights reserved.               #
-# Leap Motion proprietary and confidential. Not for distribution.              #
-# Use subject to the terms of the Leap Motion SDK Agreement available at       #
-# https://developer.leapmotion.com/sdk_agreement, or another agreement         #
-# between Leap Motion and you, your company or other organization.             #
-################################################################################
-
 import os, sys, inspect, thread, time
 import Leap
 import Tkinter as tk
@@ -24,6 +16,7 @@ root = tk.Tk()
 canvas = tk.Canvas(root, width=800, height=800, bg="white")
 canvas.pack()
 
+person = input('Enter participant ID: ')
 diameter = int(input('Enter distance(<700): '))
 width = int(input('Enter width(<50): '))
 center_x = 400
@@ -126,7 +119,6 @@ class SampleListener(Leap.Listener):
     finger_names = ['Thumb', 'Index', 'Middle', 'Ring', 'Pinky']
     bone_names = ['Metacarpal', 'Proximal', 'Intermediate', 'Distal']
     
-	
     def on_init(self, controller):
         print "Initialized"
 
@@ -198,81 +190,93 @@ class SampleListener(Leap.Listener):
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[1], fill='#000000')
                     select1=canvas.create_text(500,10,text="1 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc8, fill='grey')
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 1])
+                    f.close()
             elif (min(list_dis)==distance2):
                 bubble(2)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[2], fill='#000000')
                     select2=canvas.create_text(500,20,text="2 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc3, fill='grey')
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 2])
+                    f.close()
             elif (min(list_dis)==distance3):
                 bubble(3)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[3], fill='#000000')
                     select3=canvas.create_text(500,30,text="3 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc6, fill='grey')				
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 3])
+                    f.close()					
             elif (min(list_dis)==distance4):
                 bubble(4)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[4], fill='#000000')
                     select4=canvas.create_text(500,40,text="4 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc5, fill='grey')	
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 4])
+                    f.close()
             elif (min(list_dis)==distance5):
                 bubble(5)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[5], fill='#000000')
                     select5=canvas.create_text(500,50,text="5 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc4, fill='grey')	
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 5])
+                    f.close()
             elif (min(list_dis)==distance6):
                 bubble(6)
                 if(point.direction.y < -0.5):
                     canvas.itemconfig(arc[6], fill='#000000')
                     select6=canvas.create_text(500,60,text="6 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc7, fill='grey')	
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 6])
+                    f.close()
             elif (min(list_dis)==distance7):
                 bubble(7)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[7], fill='#000000')
                     select7=canvas.create_text(500,70,text="7 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc2, fill='grey')					
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 7])
+                    f.close()					
             elif (min(list_dis)==distance8):
                 bubble(8)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[8], fill='#000000')
                     select8=canvas.create_text(500,80,text="8 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc9, fill='grey')	
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 8])
+                    f.close()
             elif (min(list_dis)==distance9):
                 bubble(9)                 
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[9], fill='#000000')
                     select9=canvas.create_text(500,90,text="9 has been selected")
-                    #time.sleep(sleep_time)
-                    #canvas.itemconfig(arc1, fill='grey')
+                    with open('log.csv', 'a') as f:
+                        write = csv.writer(f)
+                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 9])
+                    f.close()
 
             canvas.delete(handNumber,fingerNumber,dot)
 
 def main():
-
-    person = input('Enter participant ID: ')
 
     with open('log.csv', 'w') as csvfile:
         fieldnames = ['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
 	csvfile.close()
-	
-    with open('log.csv', 'a') as f:
-        write = csv.writer(f)
-        write.writerow([person, '1', int(time.time()), '1', 1, 1, 1])
-    f.close()
+
     # Create a sample listener and controller
     listener = SampleListener()
     controller = Leap.Controller()
