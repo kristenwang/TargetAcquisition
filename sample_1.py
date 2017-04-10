@@ -10,6 +10,7 @@ import os, sys, inspect, thread, time
 import Leap
 import Tkinter as tk
 import math
+import csv
 
 src_dir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 # Windows and Linux
@@ -33,16 +34,16 @@ IntBox_x=canvas.create_text(60,120,text='X')
 IntBox_z=canvas.create_text(60,160,text='Z')
 IntBox_l=canvas.create_text(60,180,text=' ')
 
-Posi_x = [0,center_x - (diameter/2*math.sin(2/18*math.pi)),center_x + (diameter/2*math.sin(4/18*math.pi)),center_x - (diameter/2*math.cos(3/18*math.pi)),center_x + (diameter/2*math.cos(1/18*math.pi)),center_x - (diameter/2*math.cos(1/18*math.pi)),center_x + (diameter/2*math.cos(3/18*math.pi)),center_x - (diameter/2*math.sin(4/18*math.pi)),center_x + (diameter/2*math.sin(2/18*math.pi)),center_x]
+Posi_x = [0, center_x-(diameter/2*math.sin(2/18.0*math.pi)), center_x+(diameter/2*math.sin(4/18.0*math.pi)),center_x - (diameter/2*math.cos(3/18.0*math.pi)),center_x + (diameter/2*math.cos(1/18.0*math.pi)),center_x - (diameter/2*math.cos(1/18.0*math.pi)),center_x + (diameter/2*math.cos(3/18.0*math.pi)),center_x - (diameter/2*math.sin(4/18.0*math.pi)),center_x + (diameter/2*math.sin(2/18.0*math.pi)),center_x]
 Posi_y = [0]
-Posi_y.append(center_y + (diameter/2*math.cos(2/18*math.pi)))
-Posi_y.append(center_y - (diameter/2*math.cos(4/18*math.pi)))
-Posi_y.append(center_y + (diameter/2*math.sin(3/18*math.pi)))
-Posi_y.append(center_y - (diameter/2*math.sin(1/18*math.pi)))
-Posi_y.append(center_y - (diameter/2*math.sin(1/18*math.pi)))
-Posi_y.append(center_y + (diameter/2*math.sin(3/18*math.pi)))
-Posi_y.append(center_y - (diameter/2*math.cos(4/18*math.pi)))
-Posi_y.append(center_y + (diameter/2*math.cos(2/18*math.pi)))
+Posi_y.append(center_y + (diameter/2*math.cos(2/18.0*math.pi)))
+Posi_y.append(center_y - (diameter/2*math.cos(4/18.0*math.pi)))
+Posi_y.append(center_y + (diameter/2*math.sin(3/18.0*math.pi)))
+Posi_y.append(center_y - (diameter/2*math.sin(1/18.0*math.pi)))
+Posi_y.append(center_y - (diameter/2*math.sin(1/18.0*math.pi)))
+Posi_y.append(center_y + (diameter/2*math.sin(3/18.0*math.pi)))
+Posi_y.append(center_y - (diameter/2*math.cos(4/18.0*math.pi)))
+Posi_y.append(center_y + (diameter/2*math.cos(2/18.0*math.pi)))
 Posi_y.append(center_y - (diameter/2))
 
 arc = [0]
@@ -60,33 +61,63 @@ def back_to_ori(target):
 
 def bubble(target_num):
     global canvas, diameter, width, center_x, center_y
-    for i in range (1,9):
-        back_to_ori(i)
+
     if (target_num == 1):
+        for i in range (2,10):
+            back_to_ori(i)
         canvas.coords(arc[1],Posi_x[1]-2*width,Posi_y[1]-4*width,Posi_x[1]+3*width,Posi_y[1]+1*width)
         canvas.coords(target_id[1],Posi_x[1]+0.5*width,Posi_y[1]-1.5*width)
     elif (target_num == 2):
+        for i in range (1,2):
+            back_to_ori(i)
+        for i in range (3,10):
+            back_to_ori(i)
         canvas.coords(arc[2],Posi_x[2]-3*width,Posi_y[2]-2*width,Posi_x[2]+2*width,Posi_y[2]+3*width)
         canvas.coords(target_id[2],Posi_x[2]-0.5*width,Posi_y[2]+0.5*width)
     elif (target_num == 3):
+        for i in range (1,3):
+            back_to_ori(i)
+        for i in range (4,10):
+            back_to_ori(i)
         canvas.coords(arc[3],Posi_x[3]-1*width,Posi_y[3]-3.5*width,Posi_x[3]+4*width,Posi_y[3]+1.5*width)
         canvas.coords(target_id[3],Posi_x[3]+1.5*width,Posi_y[3]-1*width)
     elif (target_num == 4):
+        for i in range (1,4):
+            back_to_ori(i)
+        for i in range (5,10):
+            back_to_ori(i)
         canvas.coords(arc[4],Posi_x[4]-4*width,Posi_y[4]-2.4*width,Posi_x[4]+1*width,Posi_y[4]+2.6*width)
         canvas.coords(target_id[4],Posi_x[4]-1.5*width,Posi_y[4]-0*width)
     elif (target_num == 5):
+        for i in range (1,5):
+            back_to_ori(i)
+        for i in range (6,10):
+            back_to_ori(i)
         canvas.coords(arc[5],Posi_x[5]-1*width,Posi_y[5]-2.4*width,Posi_x[5]+4*width,Posi_y[5]+2.6*width)
         canvas.coords(target_id[5],Posi_x[5]+1.5*width,Posi_y[5]-0*width)
     elif (target_num == 6):
+        for i in range (1,6):
+            back_to_ori(i)
+        for i in range (7,10):
+            back_to_ori(i)
         canvas.coords(arc[6],Posi_x[6]-3.5*width,Posi_y[6]-3*width,Posi_x[6]+1.5*width,Posi_y[6]+2*width)
         canvas.coords(target_id[6],Posi_x[6]-1*width,Posi_y[6]-0.5*width)
     elif (target_num == 7):
+        for i in range (1,7):
+            back_to_ori(i)
+        for i in range (8,10):
+            back_to_ori(i)
         canvas.coords(arc[7],Posi_x[7]-2*width,Posi_y[7]-2*width,Posi_x[7]+3*width,Posi_y[7]+3*width)
         canvas.coords(target_id[7],Posi_x[7]+0.5*width,Posi_y[7]+0.5*width)
     elif (target_num == 8):
+        for i in range (1,8):
+            back_to_ori(i)
+        back_to_ori(9)
         canvas.coords(arc[8],Posi_x[8]-3*width,Posi_y[8]-4*width,Posi_x[8]+2*width,Posi_y[8]+1*width)
         canvas.coords(target_id[8],Posi_x[8]-0.5*width,Posi_y[8]-1.5*width)
     elif (target_num == 9):
+        for i in range (1,9):
+            back_to_ori(i)
         canvas.coords(arc[9],Posi_x[9]-2.5*width,Posi_y[9]-1*width,Posi_x[9]+2.5*width,Posi_y[9]+4*width)
         canvas.coords(target_id[9],Posi_x[9]-0*width,Posi_y[9]+1.5*width)
 
@@ -114,8 +145,6 @@ class SampleListener(Leap.Listener):
         frame = controller.frame()
         point=frame.pointables.frontmost
         sleep_time=0.3
-        global arc1,arc2,arc3,arc4,arc5,arc6,arc7,arc8,arc9
-        global id1,id2,id3,id4,id5,id6,id7,id8,id9
         global canvas,IntBox_l,IntBox_x,IntBox_y,IntBox_z
 
         if point.is_valid:
@@ -167,21 +196,21 @@ class SampleListener(Leap.Listener):
             if (min(list_dis)==distance1):
                 bubble(1)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc8, fill='#000000')
+                    canvas.itemconfig(arc[8], fill='#000000')
                     select1=canvas.create_text(500,10,text="1 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc8, fill='grey')
             elif (min(list_dis)==distance2):
                 bubble(2)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc3, fill='#000000')
+                    canvas.itemconfig(arc[3], fill='#000000')
                     select2=canvas.create_text(500,20,text="2 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc3, fill='grey')
             elif (min(list_dis)==distance3):
                 bubble(3)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc6, fill='#000000')
+                    canvas.itemconfig(arc[6], fill='#000000')
                     select3=canvas.create_text(500,30,text="3 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc6, fill='grey')				
@@ -195,35 +224,35 @@ class SampleListener(Leap.Listener):
             elif (min(list_dis)==distance5):
                 bubble(5)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc4, fill='#000000')
+                    canvas.itemconfig(arc[4], fill='#000000')
                     select5=canvas.create_text(500,50,text="5 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc4, fill='grey')	
             elif (min(list_dis)==distance6):
                 bubble(6)
                 if(point.direction.y < -0.5):
-                    canvas.itemconfig(arc7, fill='#000000')
+                    canvas.itemconfig(arc[7], fill='#000000')
                     select6=canvas.create_text(500,60,text="6 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc7, fill='grey')	
             elif (min(list_dis)==distance7):
                 bubble(7)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc2, fill='#000000')
+                    canvas.itemconfig(arc[2], fill='#000000')
                     select7=canvas.create_text(500,70,text="7 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc2, fill='grey')					
             elif (min(list_dis)==distance8):
                 bubble(8)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc9, fill='#000000')
+                    canvas.itemconfig(arc[9], fill='#000000')
                     select8=canvas.create_text(500,80,text="8 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc9, fill='grey')	
             elif (min(list_dis)==distance9):
                 bubble(9)                 
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc1, fill='#000000')
+                    canvas.itemconfig(arc[1], fill='#000000')
                     select9=canvas.create_text(500,90,text="9 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc1, fill='grey')
@@ -238,11 +267,13 @@ def main():
         fieldnames = ['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
+	csvfile.close()
+	
     with open('log.csv', 'a') as f:
         write = csv.writer(f)
-        write.writerow({'ID': person, 'trial': '1', 'time': int(time.time()), 'click':'1', 'location_x':1, 'location_y':1, 'target_hit':1})
-        write.writerow({'ID': person, 'trial': '1', 'time': int(time.time()), 'click':'1', 'location_x':1, 'location_y':1, 'target_hit':2})
-    
+        write.writerows({'ID': person, 'trial': '1', 'time': int(time.time()), 'click':'1', 'location_x':1, 'location_y':1, 'target_hit':1})
+        write.writerows({'ID': person, 'trial': '1', 'time': int(time.time()), 'click':'1', 'location_x':1, 'location_y':1, 'target_hit':2})
+    f.close()
     # Create a sample listener and controller
     listener = SampleListener()
     controller = Leap.Controller()
