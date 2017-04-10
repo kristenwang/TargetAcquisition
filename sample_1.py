@@ -174,7 +174,7 @@ class SampleListener(Leap.Listener):
         # Get hands
         for hand in frame.hands:
             hand_x=int(hand.palm_position.x+400)
-            hand_z=int(500-hand.palm_position.y)
+            hand_z=int(600-hand.palm_position.y)
             hand_y=int(hand.palm_position.z)
             handnum=canvas.create_text(50,20,text="Hand number")
             handNumber=canvas.create_text(50,40,text=len(frame.hands))
@@ -196,63 +196,63 @@ class SampleListener(Leap.Listener):
             if (min(list_dis)==distance1):
                 bubble(1)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[8], fill='#000000')
+                    canvas.itemconfig(arc[1], fill='#000000')
                     select1=canvas.create_text(500,10,text="1 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc8, fill='grey')
             elif (min(list_dis)==distance2):
                 bubble(2)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[3], fill='#000000')
+                    canvas.itemconfig(arc[2], fill='#000000')
                     select2=canvas.create_text(500,20,text="2 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc3, fill='grey')
             elif (min(list_dis)==distance3):
                 bubble(3)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[6], fill='#000000')
+                    canvas.itemconfig(arc[3], fill='#000000')
                     select3=canvas.create_text(500,30,text="3 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc6, fill='grey')				
             elif (min(list_dis)==distance4):
                 bubble(4)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc5, fill='#000000')
+                    canvas.itemconfig(arc[4], fill='#000000')
                     select4=canvas.create_text(500,40,text="4 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc5, fill='grey')	
             elif (min(list_dis)==distance5):
                 bubble(5)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[4], fill='#000000')
+                    canvas.itemconfig(arc[5], fill='#000000')
                     select5=canvas.create_text(500,50,text="5 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc4, fill='grey')	
             elif (min(list_dis)==distance6):
                 bubble(6)
                 if(point.direction.y < -0.5):
-                    canvas.itemconfig(arc[7], fill='#000000')
+                    canvas.itemconfig(arc[6], fill='#000000')
                     select6=canvas.create_text(500,60,text="6 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc7, fill='grey')	
             elif (min(list_dis)==distance7):
                 bubble(7)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[2], fill='#000000')
+                    canvas.itemconfig(arc[7], fill='#000000')
                     select7=canvas.create_text(500,70,text="7 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc2, fill='grey')					
             elif (min(list_dis)==distance8):
                 bubble(8)
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[9], fill='#000000')
+                    canvas.itemconfig(arc[8], fill='#000000')
                     select8=canvas.create_text(500,80,text="8 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc9, fill='grey')	
             elif (min(list_dis)==distance9):
                 bubble(9)                 
                 if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[1], fill='#000000')
+                    canvas.itemconfig(arc[9], fill='#000000')
                     select9=canvas.create_text(500,90,text="9 has been selected")
                     #time.sleep(sleep_time)
                     #canvas.itemconfig(arc1, fill='grey')
