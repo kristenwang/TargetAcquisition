@@ -271,8 +271,7 @@ def main():
 	
     with open('log.csv', 'a') as f:
         write = csv.writer(f)
-        write.writerows({'ID': person, 'trial': '1', 'time': int(time.time()), 'click':'1', 'location_x':1, 'location_y':1, 'target_hit':1})
-        write.writerows({'ID': person, 'trial': '1', 'time': int(time.time()), 'click':'1', 'location_x':1, 'location_y':1, 'target_hit':2})
+        write.writerow([person, '1', int(time.time()), '1', 1, 1, 1])
     f.close()
     # Create a sample listener and controller
     listener = SampleListener()
