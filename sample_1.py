@@ -42,6 +42,10 @@ target_id = [0]
 for i in range (1,10):
     target_id.append(canvas.create_text(Posi_x[i],Posi_y[i],text=i,font=("Purisa",60)))
 
+select = [0]
+for k in range (1,10):
+    select.append(canvas.create_text(700,10+k*10,text=""))
+
 def startNew():
     global arc, target_id, select1
     canvas.itemconfig(select1, text="")
@@ -49,6 +53,7 @@ def startNew():
         canvas.coords(arc[j],Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width)
         canvas.itemconfig(arc[j], fill='grey')
         canvas.coords(target_id[j],Posi_x[j],Posi_y[j])
+        canvas.itemconfig(select[j], text="")
     with open('log.csv', 'a') as f:
         write = csv.writer(f)
         write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit'])
@@ -208,7 +213,7 @@ class SampleListener(Leap.Listener):
                 bubble(1)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[1], fill='#000000')
-                    canvas.itemconfig(select1, text="1 has been selected")
+                    canvas.itemconfig(select[1], text="1 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 1])
@@ -217,7 +222,7 @@ class SampleListener(Leap.Listener):
                 bubble(2)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[2], fill='#000000')
-                    select2=canvas.create_text(500,20,text="2 has been selected")
+                    canvas.itemconfig(select[2], text="2 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 2])
@@ -226,7 +231,7 @@ class SampleListener(Leap.Listener):
                 bubble(3)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[3], fill='#000000')
-                    select3=canvas.create_text(500,30,text="3 has been selected")
+                    canvas.itemconfig(select[3], text="3 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 3])
@@ -235,7 +240,7 @@ class SampleListener(Leap.Listener):
                 bubble(4)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[4], fill='#000000')
-                    select4=canvas.create_text(500,40,text="4 has been selected")
+                    canvas.itemconfig(select[4], text="4 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 4])
@@ -244,7 +249,7 @@ class SampleListener(Leap.Listener):
                 bubble(5)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[5], fill='#000000')
-                    select5=canvas.create_text(500,50,text="5 has been selected")
+                    canvas.itemconfig(select[5], text="5 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 5])
@@ -253,7 +258,7 @@ class SampleListener(Leap.Listener):
                 bubble(6)
                 if(point.direction.y < -0.5):
                     canvas.itemconfig(arc[6], fill='#000000')
-                    select6=canvas.create_text(500,60,text="6 has been selected")
+                    canvas.itemconfig(select[6], text="6 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 6])
@@ -262,7 +267,7 @@ class SampleListener(Leap.Listener):
                 bubble(7)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[7], fill='#000000')
-                    select7=canvas.create_text(500,70,text="7 has been selected")
+                    canvas.itemconfig(select[7], text="7 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 7])
@@ -271,7 +276,7 @@ class SampleListener(Leap.Listener):
                 bubble(8)
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[8], fill='#000000')
-                    select8=canvas.create_text(500,80,text="8 has been selected")
+                    canvas.itemconfig(select[8], text="8 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 8])
@@ -280,7 +285,7 @@ class SampleListener(Leap.Listener):
                 bubble(9)                 
                 if (point.direction.y < -0.5):
                     canvas.itemconfig(arc[9], fill='#000000')
-                    select9=canvas.create_text(500,90,text="9 has been selected")
+                    canvas.itemconfig(select[9], text="9 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
                         write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 9])
