@@ -18,6 +18,7 @@ diameter = int(input('Enter distance(<700): '))
 width = int(input('Enter width(<50): '))
 center_x = 400
 center_y = 400
+trial_num = 1
 
 Posi_x = [0, center_x-(diameter/2*math.sin(2/18.0*math.pi)), center_x+(diameter/2*math.sin(4/18.0*math.pi)),center_x - (diameter/2*math.cos(3/18.0*math.pi)),center_x + (diameter/2*math.cos(1/18.0*math.pi)),center_x - (diameter/2*math.cos(1/18.0*math.pi)),center_x + (diameter/2*math.cos(3/18.0*math.pi)),center_x - (diameter/2*math.sin(4/18.0*math.pi)),center_x + (diameter/2*math.sin(2/18.0*math.pi)),center_x]
 Posi_y = [0]
@@ -47,17 +48,17 @@ for k in range (1,10):
     select.append(canvas.create_text(700,10+k*10,text=""))
 
 def startNew():
-    global arc, target_id, select1
-    canvas.itemconfig(select1, text="")
+    global arc, target_id, select, trial_num
+    trial_num = trial_num+1
     for j in range (1,10):
         canvas.coords(arc[j],Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width)
         canvas.itemconfig(arc[j], fill='grey')
         canvas.coords(target_id[j],Posi_x[j],Posi_y[j])
         canvas.itemconfig(select[j], text="")
-    with open('log.csv', 'a') as f:
-        write = csv.writer(f)
-        write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit'])
-    f.close()
+    #with open('log.csv', 'a') as f:
+    #    write = csv.writer(f)
+    #    write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit'])
+    #f.close()
 
 #frame = tk.Frame(root, bg='grey', width=800, height=40)
 #frame.pack(fill='x')
@@ -216,7 +217,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[1], text="1 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 1])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 1])
                     f.close()
             elif (min(list_dis)==distance2):
                 bubble(2)
@@ -225,7 +226,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[2], text="2 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 2])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 2])
                     f.close()
             elif (min(list_dis)==distance3):
                 bubble(3)
@@ -234,7 +235,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[3], text="3 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 3])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 3])
                     f.close()					
             elif (min(list_dis)==distance4):
                 bubble(4)
@@ -243,7 +244,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[4], text="4 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 4])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 4])
                     f.close()
             elif (min(list_dis)==distance5):
                 bubble(5)
@@ -252,7 +253,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[5], text="5 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 5])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 5])
                     f.close()
             elif (min(list_dis)==distance6):
                 bubble(6)
@@ -261,7 +262,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[6], text="6 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 6])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 6])
                     f.close()
             elif (min(list_dis)==distance7):
                 bubble(7)
@@ -270,7 +271,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[7], text="7 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 7])
+                        write.writerow([person,trial_num, str(time.time()), '1', hand_x, hand_z, 7])
                     f.close()					
             elif (min(list_dis)==distance8):
                 bubble(8)
@@ -279,7 +280,7 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[8], text="8 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 8])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 8])
                     f.close()
             elif (min(list_dis)==distance9):
                 bubble(9)                 
@@ -288,18 +289,18 @@ class SampleListener(Leap.Listener):
                     canvas.itemconfig(select[9], text="9 has been selected")
                     with open('log.csv', 'a') as f:
                         write = csv.writer(f)
-                        write.writerow([person, '1', int(time.time()), '1', hand_x, hand_z, 9])
+                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 9])
                     f.close()
 
             canvas.delete(handNumber,fingerNumber,dot)
 
 def main():
 
-    with open('log.csv', 'w') as csvfile:
-        fieldnames = ['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-	csvfile.close()
+    #with open('log.csv', 'w') as csvfile:
+    #    fieldnames = ['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit']
+    #    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #    writer.writeheader()
+	#csvfile.close()
 
     # Create a sample listener and controller
     listener = SampleListener()
