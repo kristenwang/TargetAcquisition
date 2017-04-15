@@ -139,6 +139,19 @@ def bubble(target_num):
         canvas.coords(arc[9],Posi_x[9]-2.5*width,Posi_y[9]-1*width,Posi_x[9]+2.5*width,Posi_y[9]+4*width)
         canvas.coords(target_id[9],Posi_x[9]-0*width,Posi_y[9]+1.5*width)
 
+def select(target_id):
+    stack = [0]
+    if (point.direction.y < -0.5) and (stack.pop()==0):
+        stack.append(1)
+    if (point.direction.y > -0.5) and (stack.pop()==1):
+        stack = [0]
+        canvas.itemconfig(arc[target_id], fill='#000000')
+        canvas.itemconfig(select[target_id], text=target_id, "has been selected")
+        with open('log.csv', 'a') as f:
+            write = csv.writer(f)
+            write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, target_id])
+        f.close()
+
 
 class SampleListener(Leap.Listener):
     finger_names = ['Thumb', 'Index', 'Middle', 'Ring', 'Pinky']
@@ -212,13 +225,7 @@ class SampleListener(Leap.Listener):
             
             if (min(list_dis)==distance1):
                 bubble(1)
-                if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[1], fill='#000000')
-                    canvas.itemconfig(select[1], text="1 has been selected")
-                    with open('log.csv', 'a') as f:
-                        write = csv.writer(f)
-                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 1])
-                    f.close()
+                select(1)
             elif (min(list_dis)==distance2):
                 bubble(2)
                 if (point.direction.y < -0.5):
