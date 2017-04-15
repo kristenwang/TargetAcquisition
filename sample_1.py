@@ -142,23 +142,18 @@ def bubble(target_num):
 
 def click(target_id, point, hand_x, hand_z):
     global canvas, stack
-    if (point.direction.y < 0) and (stack==0):
+    if (point.direction.y < -0.5) and (stack==0):
         stack=1
-        #print(stack)
-    elif (point.direction.y > 0) and (stack==1):
-        stack=0
-        print(stack)
+    elif (point.direction.y > -0.2) and (stack==1):
         canvas.itemconfig(arc[target_id], fill='#000000')
         canvas.itemconfig(select[target_id], text="%d has been selected" % target_id)
         with open('log.csv', 'a') as f:
             write = csv.writer(f)
             write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, target_id])
         f.close()
-
-
+        stack=0
+        
 class SampleListener(Leap.Listener):
-    finger_names = ['Thumb', 'Index', 'Middle', 'Ring', 'Pinky']
-    bone_names = ['Metacarpal', 'Proximal', 'Intermediate', 'Distal']
     
     def on_init(self, controller):
         print "Initialized"
@@ -177,7 +172,6 @@ class SampleListener(Leap.Listener):
         # Get the most recent frame and report some basic information
         frame = controller.frame()
         point=frame.pointables.frontmost
-        sleep_time=0.3
         
         global canvas,IntBox_l,IntBox_x,IntBox_y,IntBox_z,select1
 
@@ -208,8 +202,8 @@ class SampleListener(Leap.Listener):
         # Get hands
         for hand in frame.hands:
             hand_x=int(hand.palm_position.x+400)
-            hand_z=int(600-hand.palm_position.y)
-            hand_y=int(hand.palm_position.z)
+            hand_z=int(550-hand.palm_position.y)
+            hand_y=int(hand.palm_position.z+350)
             handnum=canvas.create_text(50,20,text="Hand number")
             handNumber=canvas.create_text(50,40,text=len(frame.hands))
             fingernum=canvas.create_text(50,60,text="Finger number")
@@ -250,22 +244,10 @@ class SampleListener(Leap.Listener):
                 click(7, point, hand_x, hand_z)					
             elif (min(list_dis)==distance8):
                 bubble(8)
-                if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[8], fill='#000000')
-                    canvas.itemconfig(select[8], text="8 has been selected")
-                    with open('log.csv', 'a') as f:
-                        write = csv.writer(f)
-                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 8])
-                    f.close()
+                click(8, point, hand_x, hand_z)
             elif (min(list_dis)==distance9):
                 bubble(9)                 
-                if (point.direction.y < -0.5):
-                    canvas.itemconfig(arc[9], fill='#000000')
-                    canvas.itemconfig(select[9], text="9 has been selected")
-                    with open('log.csv', 'a') as f:
-                        write = csv.writer(f)
-                        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, 9])
-                    f.close()
+                click(9, point, hand_x, hand_z)
 
             canvas.delete(handNumber,fingerNumber,dot)
 
