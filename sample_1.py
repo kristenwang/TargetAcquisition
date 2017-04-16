@@ -49,18 +49,19 @@ select = [0]
 for k in range (1,10):
     select.append(canvas.create_text(700,10+k*10,text=""))
 
+logFile = open('log.csv', 'a')
+write = csv.writer(logFile)
+write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit', diameter, width])
+
 def startNew():
-    global arc, target_id, select, trial_num
+    global arc, target_id, select, trial_num, write
     trial_num = trial_num+1
     for j in range (1,10):
         canvas.coords(arc[j],Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width)
         canvas.itemconfig(arc[j], fill='grey')
         canvas.coords(target_id[j],Posi_x[j],Posi_y[j])
         canvas.itemconfig(select[j], text="")
-    with open('log.csv', 'a') as f:
-        write = csv.writer(f)
         write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit'])
-    f.close()
 
 #frame = tk.Frame(root, bg='grey', width=800, height=40)
 #frame.pack(fill='x')
@@ -80,16 +81,13 @@ def back_to_ori(target):
     canvas.coords(target_id[target],Posi_x[target],Posi_y[target])
 
 def click(target, point, hand_x, hand_z):
-    global canvas, stack
+    global canvas, stack, write
     if (point.direction.y < -0.5) and (stack==0):
         stack=1
     elif (point.direction.y > -0.2) and (stack==1):
         canvas.itemconfig(arc[target_id], fill='#000000')
         canvas.itemconfig(select[target_id], text="%d has been selected" % target_id)
-        with open('log.csv', 'a') as f:
-            write = csv.writer(f)
-            write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, target_id])
-        f.close()
+        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, target_id])
         stack=0
         
 class SampleListener(Leap.Listener):
@@ -209,7 +207,7 @@ class SampleListener(Leap.Listener):
                 canvas.coords(arc[7],Posi_x[7]-2*width,Posi_y[7]-2*width,Posi_x[7]+3*width,Posi_y[7]+3*width)
                 canvas.coords(target_id[7],Posi_x[7]+0.5*width,Posi_y[7]+0.5*width)
                 click(7, point, hand_x, hand_z)  
-                pre = 7				
+                pre = 7             
             elif (min(list_dis)==distance8):
                 if pre != 8:
                     back_to_ori(pre)
@@ -229,11 +227,11 @@ class SampleListener(Leap.Listener):
 
 def main():
 
-    with open('log.csv', 'w') as csvfile:
-        fieldnames = ['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-    csvfile.close()
+    #with open('log.csv', 'w') as csvfile:
+    #    fieldnames = ['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit']
+    #    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #    writer.writeheader()
+    #csvfile.close()
 
     # Create a sample listener and controller
     listener = SampleListener()
@@ -244,6 +242,7 @@ def main():
     
     root.mainloop()
     
+    logFile.close()
     # Keep this process running until Enter is pressed
     print "Press Enter to quit..."
     try:
