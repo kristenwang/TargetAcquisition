@@ -20,6 +20,7 @@ center_x = 400
 center_y = 400
 trial_num = 1
 stack = 0
+pre = 1
 
 Posi_x = [0, center_x-(diameter/2*math.sin(2/18.0*math.pi)), center_x+(diameter/2*math.sin(4/18.0*math.pi)),center_x - (diameter/2*math.cos(3/18.0*math.pi)),center_x + (diameter/2*math.cos(1/18.0*math.pi)),center_x - (diameter/2*math.cos(1/18.0*math.pi)),center_x + (diameter/2*math.cos(3/18.0*math.pi)),center_x - (diameter/2*math.sin(4/18.0*math.pi)),center_x + (diameter/2*math.sin(2/18.0*math.pi)),center_x]
 Posi_y = [0]
@@ -78,7 +79,7 @@ def back_to_ori(target):
     canvas.coords(arc[target],Posi_x[target]-width,Posi_y[target]-width,Posi_x[target]+width,Posi_y[target]+width)
     canvas.coords(target_id[target],Posi_x[target],Posi_y[target])
 
-def click(target_id, point, hand_x, hand_z):
+def click(target, point, hand_x, hand_z):
     global canvas, stack
     if (point.direction.y < -0.5) and (stack==0):
         stack=1
@@ -111,7 +112,7 @@ class SampleListener(Leap.Listener):
         frame = controller.frame()
         point=frame.pointables.frontmost
         
-        global canvas,IntBox_l,IntBox_x,IntBox_y,IntBox_z,select1
+        global canvas,IntBox_l,IntBox_x,IntBox_y,IntBox_z,select1,pre
 
         if point.is_valid:
             i_box=frame.interaction_box
@@ -132,10 +133,11 @@ class SampleListener(Leap.Listener):
             canvas.itemconfig(IntBox_z,text='Z in boundary')
             canvas.itemconfig(IntBox_l,text=' ')
         else:
-            canvas.itemconfig(IntBox_l,text='Out of boundary')
-            canvas.itemconfig(IntBox_x,text=' ')
-            canvas.itemconfig(IntBox_y,text=' ')
-            canvas.itemconfig(IntBox_z,text=' ')
+            if canvas:
+                canvas.itemconfig(IntBox_l,text='Out of boundary')
+                canvas.itemconfig(IntBox_x,text=' ')
+                canvas.itemconfig(IntBox_y,text=' ')
+                canvas.itemconfig(IntBox_z,text=' ')
 
         # Get hands
         for hand in frame.hands:
@@ -160,73 +162,68 @@ class SampleListener(Leap.Listener):
             list_dis=[distance1,distance2,distance3,distance4,distance5,distance6,distance7,distance8,distance9]
             
             if (min(list_dis)==distance1):
-                for i in range (2,10):
-                    back_to_ori(i)
+                if pre != 1:
+                    back_to_ori(pre)
                 canvas.coords(arc[1],Posi_x[1]-2*width,Posi_y[1]-4*width,Posi_x[1]+3*width,Posi_y[1]+1*width)
                 canvas.coords(target_id[1],Posi_x[1]+0.5*width,Posi_y[1]-1.5*width)
                 click(1, point, hand_x, hand_z)
+                pre = 1
             elif (min(list_dis)==distance2):
-                for i in range (1,2):
-                    back_to_ori(i)
-                for i in range (3,10):
-                    back_to_ori(i)
+                if pre != 2:
+                    back_to_ori(pre)
                 canvas.coords(arc[2],Posi_x[2]-3*width,Posi_y[2]-2*width,Posi_x[2]+2*width,Posi_y[2]+3*width)
                 canvas.coords(target_id[2],Posi_x[2]-0.5*width,Posi_y[2]+0.5*width)
                 click(2, point, hand_x, hand_z)
+                pre = 2
             elif (min(list_dis)==distance3):
-                for i in range (1,3):
-                    back_to_ori(i)
-                for i in range (4,10):
-                    back_to_ori(i)
+                if pre != 3:
+                    back_to_ori(pre)
                 canvas.coords(arc[3],Posi_x[3]-1*width,Posi_y[3]-3.5*width,Posi_x[3]+4*width,Posi_y[3]+1.5*width)
                 canvas.coords(target_id[3],Posi_x[3]+1.5*width,Posi_y[3]-1*width)
-                click(3, point, hand_x, hand_z)                 
+                click(3, point, hand_x, hand_z) 
+                pre = 3                
             elif (min(list_dis)==distance4):
-                for i in range (1,4):
-                    back_to_ori(i)
-
-                for i in range (5,10):
-                    back_to_ori(i)
+                if pre != 4:
+                    back_to_ori(pre)
                 canvas.coords(arc[4],Posi_x[4]-4*width,Posi_y[4]-2.4*width,Posi_x[4]+1*width,Posi_y[4]+2.6*width)
                 canvas.coords(target_id[4],Posi_x[4]-1.5*width,Posi_y[4]-0*width)
                 click(4, point, hand_x, hand_z)
+                pre = 4;
             elif (min(list_dis)==distance5):
-                for i in range (1,5):
-                    back_to_ori(i)
-                for i in range (6,10):
-                    back_to_ori(i)
+                if pre != 5:
+                    back_to_ori(pre)
                 canvas.coords(arc[5],Posi_x[5]-1*width,Posi_y[5]-2.4*width,Posi_x[5]+4*width,Posi_y[5]+2.6*width)
                 canvas.coords(target_id[5],Posi_x[5]+1.5*width,Posi_y[5]-0*width)
                 click(5, point, hand_x, hand_z)
+                pre = 5
             elif (min(list_dis)==distance6):
-                for i in range (1,6):
-                    back_to_ori(i)
-                for i in range (7,10):
-                    back_to_ori(i)
+                if pre != 6:
+                    back_to_ori(pre)
                 canvas.coords(arc[6],Posi_x[6]-3.5*width,Posi_y[6]-3*width,Posi_x[6]+1.5*width,Posi_y[6]+2*width)
                 canvas.coords(target_id[6],Posi_x[6]-1*width,Posi_y[6]-0.5*width)
                 click(6, point, hand_x, hand_z)
+                pre = 6
             elif (min(list_dis)==distance7):
-                for i in range (1,7):
-                    back_to_ori(i)
-                for i in range (8,10):
-                    back_to_ori(i)
+                if pre != 7:
+                    back_to_ori(pre)
                 canvas.coords(arc[7],Posi_x[7]-2*width,Posi_y[7]-2*width,Posi_x[7]+3*width,Posi_y[7]+3*width)
                 canvas.coords(target_id[7],Posi_x[7]+0.5*width,Posi_y[7]+0.5*width)
-                click(7, point, hand_x, hand_z)                 
+                click(7, point, hand_x, hand_z)  
+                pre = 7				
             elif (min(list_dis)==distance8):
-                for i in range (1,8):
-                    back_to_ori(i)
-                back_to_ori(9)
+                if pre != 8:
+                    back_to_ori(pre)
                 canvas.coords(arc[8],Posi_x[8]-3*width,Posi_y[8]-4*width,Posi_x[8]+2*width,Posi_y[8]+1*width)
                 canvas.coords(target_id[8],Posi_x[8]-0.5*width,Posi_y[8]-1.5*width)
                 click(8, point, hand_x, hand_z)
+                pre = 8
             elif (min(list_dis)==distance9):
-                for i in range (1,9):
-                    back_to_ori(i)
+                if pre != 9:
+                    back_to_ori(pre)
                 canvas.coords(arc[9],Posi_x[9]-2.5*width,Posi_y[9]-1*width,Posi_x[9]+2.5*width,Posi_y[9]+4*width)
                 canvas.coords(target_id[9],Posi_x[9]-0*width,Posi_y[9]+1.5*width)
                 click(9, point, hand_x, hand_z)
+                pre = 9
 
             canvas.delete(handNumber,fingerNumber,dot)
 
@@ -261,3 +258,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
