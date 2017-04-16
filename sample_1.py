@@ -57,11 +57,11 @@ def startNew():
     global arc, target_id, select, trial_num, write
     trial_num = trial_num+1
     for j in range (1,10):
-        canvas.coords(arc[j],Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width)
+        #canvas.coords(arc[j],Posi_x[j]-width,Posi_y[j]-width,Posi_x[j]+width,Posi_y[j]+width)
         canvas.itemconfig(arc[j], fill='grey')
         canvas.coords(target_id[j],Posi_x[j],Posi_y[j])
         canvas.itemconfig(select[j], text="")
-        write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit'])
+    write.writerow(['ID', 'trial', 'time', 'click', 'location_x', 'location_y', 'target_hit'])
 
 #frame = tk.Frame(root, bg='grey', width=800, height=40)
 #frame.pack(fill='x')
@@ -85,9 +85,9 @@ def click(target, point, hand_x, hand_z):
     if (point.direction.y < -0.5) and (stack==0):
         stack=1
     elif (point.direction.y > -0.2) and (stack==1):
-        canvas.itemconfig(arc[target_id], fill='#000000')
-        canvas.itemconfig(select[target_id], text="%d has been selected" % target_id)
-        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, target_id])
+        canvas.itemconfig(arc[target], fill='#000000')
+        canvas.itemconfig(select[target], text="%d has been selected" % target)
+        write.writerow([person, trial_num, str(time.time()), '1', hand_x, hand_z, target])
         stack=0
         
 class SampleListener(Leap.Listener):
@@ -257,4 +257,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
